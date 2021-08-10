@@ -1,0 +1,17 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: hello-world
+  namespace: default
+  labels:
+    app: hello-world
+spec:
+  containers:
+    - name: express-hello-world
+      image: 'express-hello-world:v4'
+      livenessProbe:
+        httpGet:
+          path: /template/health/liveness
+          port: 3000
+        initialDelaySeconds: 3
+        periodSeconds: 3

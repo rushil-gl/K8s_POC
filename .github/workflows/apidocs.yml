@@ -1,0 +1,41 @@
+name: OpenAPI Docs
+on:
+  push:
+    branches:
+      - develop
+      - "release/*"
+    tags:
+      - v*
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+          registry-url: https://nexus.greatminds.dev/repository/npm/
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: NPM Install
+        run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Build OpenAPI Docs
+        run: npm run build:doc
+
+      - name: Publish Docs
+        run: ./.github/sync_development_docs.sh
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          SUBPATH: 'docs'
+          SOURCE_DIR: './openapi'

@@ -1,0 +1,25 @@
+module.exports = {
+  collectCoverageFrom: [
+    '**/*.{ts,}',
+    '!**/*.module.ts',
+    '!**/*.interface.ts',
+    '!**/*.enum.ts',
+    '!**/*.constants.ts',
+    '!**/*.dto.ts',
+    '!**/*.schema.ts',
+    '!**/*.builder.ts',
+    '!**/*.model.ts',
+    '!**/*.int.spec.ts',
+    '!main.ts',
+    '!newrelicFormatter.ts',
+  ],
+  coverageDirectory: '../coverage',
+  coverageProvider: 'v8',
+  coverageReporters: ['lcov', 'text'],
+  rootDir: 'src',
+  testEnvironment: 'node',
+  testMatch: ['**/*.spec.ts', '!**/*.int.spec.ts'],
+  transform: {
+    '^.+\\.(t)s$': 'ts-jest',
+  },
+};

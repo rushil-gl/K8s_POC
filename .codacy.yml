@@ -1,0 +1,14 @@
+---
+engines:
+  duplication:
+    exclude_paths:
+      - "**.spec.ts"
+      - "src/docs/**"
+      - "**.schema.ts"
+      - "**.dto.ts"
+      - "**.model.ts"
+      - "**.builder.ts"
+      - "**.interface.ts"
+exclude_paths:
+  - "**.md"
+  - ".github/**"
