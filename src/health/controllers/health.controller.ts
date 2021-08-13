@@ -34,4 +34,15 @@ export class HealthController {
       async () => this.heap.check('memory'),
     ]);
   }
+
+  @Get('/load')
+  blockEventLoop() {
+    for(let i = 0; i < Infinity; i += 1) {
+      const a = 1;
+      if (!a) {
+        console.log('Not reachable!');
+        return;
+      }
+    }
+  }
 }

@@ -37,10 +37,10 @@ const loggerService = LoggerServiceFactory.createLoggerService({
 })
 export class AppModule implements OnApplicationShutdown{
     async onApplicationShutdown(signal?: string) {
-      console.log(`Received shutdown signal ${signal}, delay shutdown 2 secs`);
-      
-      await new Promise(res => setTimeout(res, 2000));
+      console.info(`Got ${signal}. Graceful shutdown start - `, new Date().toISOString());
 
-      console.log('Delayed successful, continue shutdown');
+      await new Promise(res => setTimeout(res, 5000));
+
+      console.log(`Delayed successful, continue shutdown - `, new Date().toISOString());
     }
 }
